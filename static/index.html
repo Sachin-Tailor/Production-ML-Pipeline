@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetentionAI • Enterprise Customer Churn Intelligence & Serving Engine</title>
+  <meta name="description" content="Production Machine Learning Serving Dashboard for Real-Time Customer Churn Risk Prediction and Decision Intelligence.">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="container nav-content">
+      <a href="/" class="brand" id="brand-link">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>RetentionAI</h1>
+          <p>Production ML Serving Engine</p>
+        </div>
+      </a>
+
+      <div class="nav-badges">
+        <div class="status-badge" id="system-status">
+          <span class="pulse-dot"></span>
+          <span>API Online (v1.0.0)</span>
+        </div>
+        <a href="/docs" target="_blank" class="btn-docs" id="swagger-docs-link">
+          <span>Swagger API</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Preset Persona Chips -->
+    <section class="presets-bar" aria-label="Customer Profile Presets">
+      <span class="presets-label">Quick Presets:</span>
+      <button type="button" class="preset-chip active" id="preset-high-risk" data-preset="high">
+        <span>🚨 High Churn Risk (Germany)</span>
+      </button>
+      <button type="button" class="preset-chip" id="preset-low-risk" data-preset="low">
+        <span>🛡️ Loyal Customer (France)</span>
+      </button>
+      <button type="button" class="preset-chip" id="preset-moderate-risk" data-preset="moderate">
+        <span>⚖️ Borderline Case (Spain)</span>
+      </button>
+    </section>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-grid">
+      
+      <!-- Left Column: Customer Profile Form -->
+      <section class="glass-card" aria-labelledby="form-heading">
+        <div class="card-header">
+          <h2 class="card-title" id="form-heading">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Customer Parameters
+          </h2>
+          <p class="card-subtitle">Adjust customer demographic, product, and financial attributes</p>
+        </div>
+
+        <form id="churn-form">
+          
+          <!-- Financial Tier -->
+          <div class="form-section">
+            <span class="section-label">Financial Indicators</span>
+            
+            <div class="form-group" style="margin-bottom: 14px;">
+              <div class="label-with-value">
+                <span>Credit Score (300 - 850)</span>
+                <span class="dynamic-val" id="val-credit-score">650</span>
+              </div>
+              <input type="range" id="input-credit-score" class="range-slider" min="300" max="850" value="650">
+            </div>
+
+            <div class="input-row">
+              <div class="form-group">
+                <div class="label-with-value">
+                  <span>Balance ($)</span>
+                </div>
+                <input type="number" id="input-balance" class="form-control" min="0" step="500" value="85000">
+              </div>
+              <div class="form-group">
+                <div class="label-with-value">
+                  <span>Estimated Salary ($)</span>
+                </div>
+                <input type="number" id="input-salary" class="form-control" min="0" step="1000" value="120000">
+              </div>
+            </div>
+          </div>
+
+          <!-- Demographics -->
+          <div class="form-section">
+            <span class="section-label">Demographics</span>
+            
+            <div class="input-row">
+              <div class="form-group">
+                <label class="label-with-value">Country</label>
+                <div class="pill-group" id="country-pill-group">
+                  <button type="button" class="pill-btn" data-value="France">France</button>
+                  <button type="button" class="pill-btn active" data-value="Germany">Germany</button>
+                  <button type="button" class="pill-btn" data-value="Spain">Spain</button>
+                </div>
+                <input type="hidden" id="input-country" value="Germany">
+              </div>
+
+              <div class="form-group">
+                <label class="label-with-value">Gender</label>
+                <div class="pill-group" id="gender-pill-group">
+                  <button type="button" class="pill-btn active" data-value="Female">Female</button>
+                  <button type="button" class="pill-btn" data-value="Male">Male</button>
+                </div>
+                <input type="hidden" id="input-gender" value="Female">
+              </div>
+            </div>
+
+            <div class="input-row">
+              <div class="form-group">
+                <div class="label-with-value">
+                  <span>Age (Years)</span>
+                  <span class="dynamic-val" id="val-age">42</span>
+                </div>
+                <input type="range" id="input-age" class="range-slider" min="18" max="95" value="42">
+              </div>
+              <div class="form-group">
+                <div class="label-with-value">
+                  <span>Tenure (Years)</span>
+                  <span class="dynamic-val" id="val-tenure">3</span>
+                </div>
+                <input type="range" id="input-tenure" class="range-slider" min="0" max="10" value="3">
+              </div>
+            </div>
+          </div>
+
+          <!-- Engagement & Products -->
+          <div class="form-section">
+            <span class="section-label">Banking Products & Engagement</span>
+            
+            <div class="form-group" style="margin-bottom: 14px;">
+              <div class="label-with-value">
+                <span>Number of Products Used</span>
+                <span class="dynamic-val" id="val-products">2</span>
+              </div>
+              <input type="range" id="input-products" class="range-slider" min="1" max="4" value="2">
+            </div>
+
+            <div class="input-row">
+              <div class="toggle-wrapper">
+                <span class="toggle-label">Has Credit Card</span>
+                <label class="switch">
+                  <input type="checkbox" id="input-credit-card" checked>
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+
+              <div class="toggle-wrapper">
+                <span class="toggle-label">Active Member</span>
+                <label class="switch">
+                  <input type="checkbox" id="input-active-member">
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit CTA -->
+          <button type="submit" class="btn-submit" id="btn-predict">
+            <span class="spinner" id="btn-spinner"></span>
+            <span id="btn-text">Run Churn Risk Inference</span>
+            <svg viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- Right Column: Model Inference Results -->
+      <section class="glass-card results-card" aria-labelledby="results-heading">
+        <div class="card-header">
+          <h2 class="card-title" id="results-heading">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Inference Telemetry
+          </h2>
+          <p class="card-subtitle">Real-time model prediction with explainable risk breakdown</p>
+        </div>
+
+        <!-- Gauge Progress Meter -->
+        <div class="gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 200 200">
+            <circle class="gauge-bg" cx="100" cy="100" r="90"></circle>
+            <circle class="gauge-bar" id="gauge-bar" cx="100" cy="100" r="90"></circle>
+          </svg>
+          <div class="gauge-center-content">
+            <div class="gauge-percentage" id="res-percentage">--%</div>
+            <div class="gauge-subtext">Churn Probability</div>
+          </div>
+        </div>
+
+        <!-- Risk Outcome Status Banner -->
+        <div class="risk-banner medium" id="risk-banner">
+          <div>
+            <div class="risk-banner-title">Evaluated Risk Tier</div>
+            <div class="risk-tag" id="res-risk-tier">Evaluating...</div>
+          </div>
+          <div>
+            <div class="risk-banner-title">Target Classification</div>
+            <div class="risk-tag" id="res-target-label" style="font-size: 0.95rem;">--</div>
+          </div>
+        </div>
+
+        <!-- Prescriptive Recommendation Action Box -->
+        <div class="action-box">
+          <div class="action-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>Automated Action Strategy</span>
+          </div>
+          <p class="action-text" id="res-action-text">
+            Initializing model telemetry...
+          </p>
+        </div>
+
+        <!-- Low-Latency Telemetry Pills -->
+        <div class="telemetry-row">
+          <div class="telemetry-item">
+            <div class="telemetry-label">Latency</div>
+            <div class="telemetry-val" id="res-latency">< 12ms</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-label">Model Engine</div>
+            <div class="telemetry-val">RandomForest</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-label">Pipeline</div>
+            <div class="telemetry-val">Unified v1.0</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
