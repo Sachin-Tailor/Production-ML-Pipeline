@@ -4,10 +4,14 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4+-F7931E?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
-[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white)](https://github.com/)
+[![Render](https://img.shields.io/badge/Render-Live_Demo-46E3B7?style=flat&logo=render&logoColor=white)](https://production-ml-pipeline-scgk.onrender.com)
+[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white)](https://github.com/Sachin-Tailor/Production-ML-Pipeline)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An enterprise-grade, containerized machine learning serving system designed for **low-latency inference, data-leakage prevention, and automated CI/CD**. 
+
+🔗 **Live Interactive Dashboard**: **[https://production-ml-pipeline-scgk.onrender.com](https://production-ml-pipeline-scgk.onrender.com)**  
+📖 **Interactive Swagger Docs**: **[https://production-ml-pipeline-scgk.onrender.com/docs](https://production-ml-pipeline-scgk.onrender.com/docs)** 
 
 This system deploys a **Customer Churn Risk Scoring Model** for financial and subscription services, complete with rigorous input validation, batch inference support, structured metadata logging, and container security best practices.
 
